@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Request
+from typing import Annotated
+from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -13,41 +14,51 @@ def get_app() -> FastAPI:
     _app.include_router(mangarouter, prefix='/manga')
     
     # Static files
-    _app.mount('/templates/images', StaticFiles(directory='templates/images'), name='images')
-    
+    _app.mount('/static', StaticFiles(directory='static'), name='static')
+
     return _app
 
 
 app = get_app()
 
 
-
-@app.get('/basic', response_class=HTMLResponse)
-def html_string():
+@app.get('/anime', response_class=HTMLResponse)
+def anime():
     return """
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Foo</title>
+    <title>Anime Site</title>
 </head>
 <body>
 
-    <h1>Hello world</h1>
-    <p>This is some html.</p>
+    <h1>Welcome to my anime site</h1>
 
 </body>
 </html>
 """
 
 
+
 templates = Jinja2Templates(directory='templates')
 
-@app.get('/better')
-def html_jinja(request: Request):
+@app.get('/animeonlybetter')
+def anime2(request: Request):
     context = {
         'request': request,
-        'title': 'Welcome to Jinjax',
+        'username': 'helloworldGuy',
+        'country': 'Philippines',
+        'year': 2023,
     }
-    return templates.TemplateResponse('better.jinja2', context)
+    return templates.TemplateResponse('anime.jinja2', context)
+
+@app.get('/page2')
+def page2(request: Request):
+    context = {
+        'request': request
+    }
+    return templates.TemplateResponse('page2.jinja2', context)
+
+
