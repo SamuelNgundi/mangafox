@@ -6,12 +6,15 @@ from icecream import ic
 from .schema import UserFavColor
 
 
+data = {}
+
 authrouter = APIRouter()
 templates = Jinja2Templates(directory='templates')
 
 
 @authrouter.get('/favcolor')
 async def form_favcolor(request: Request):
+    ic(data)
     context = {
         'request': request,
         'usernameerror': '',
@@ -23,6 +26,7 @@ async def form_favcolor(request: Request):
 @authrouter.post('/favcolor')
 async def set_favcolor(request: Request, username: Annotated[str, Form()],
                        favcolor: Annotated[str, Form()]):
+    data[username] = favcolor
     context = {
         'request': request,
         'favcolor': favcolor,
