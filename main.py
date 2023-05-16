@@ -5,6 +5,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
 from manga.routes import mangarouter
+from auth.routes import authrouter
 
 
 def get_app() -> FastAPI:
@@ -12,6 +13,7 @@ def get_app() -> FastAPI:
     
     # Use our custom route
     _app.include_router(mangarouter, prefix='/manga')
+    _app.include_router(authrouter, prefix='/auth')
     
     # Static files
     _app.mount('/static', StaticFiles(directory='static'), name='static')

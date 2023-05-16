@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>User Favorite Color</title>
+</head>
+<body>
+
+    <main>
+        <header>
+            <h1>User Favorite Color</h1>
+        </header>
+        <div>
+            <form method="post" action="/auth/favcolor">
+                <div>
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Username">
+                    <p>{{ usernameerror }}</p>
+                </div>
+                <br>
+                <div>
+                    <label for="color">Color</label>
+                    <input type="text" id="color" name="favcolor" placeholder="Color">
+                    <p>{{ passworderror }}</p>
+                </div>
+                <br>
+                <div>
+                    <input type="submit" value="Submit my favorite color">
+                </div>
+            </form>
+        </div>
+    </main>
+
+</body>
+</html>
